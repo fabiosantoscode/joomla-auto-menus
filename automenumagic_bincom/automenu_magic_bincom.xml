@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="content" client="admin">
+	<name>Content - Automatic Sub Menu Magic - by Bincom</name>
+	<author>Bade Adesemowo</author>
+	<creationDate>November 2009</creationDate>
+	<copyright>Copyright (C) 2009 Bincom . All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>bade@bincom.net</authorEmail>
+	<authorUrl>www.bincom.net</authorUrl>
+	<version>1.00</version>
+	<description>
+	<![CDATA[
+	This Plugin automatically creates a new Joomla Menu or Submenu when an article is created. 
+	<br/>	<br/>
+	<b> How it works: </b><br/><br/>
+	For Menu : it creates a new menu item for new articles that are in a category with the exact name of the menu . <br/>
+	i.e "articles created in category = Main Menu" will create menuitems under the Main Menu . 
+	<br/><br/>
+	For Sub Menu: It creates a sub menu with the title of the article under a parent menu with the same name as the articles' category.		<br/> i.e "Articles stored in a category "About Us" will create new Sub Menu  under the Menu item "About Us" that may be in any Menu . 
+
+	<br/><br/>
+	Based on an plugin by DeRose Technologies, Inc.(http://www.derosetechnologies.com/community/joomla-automatic-menu-magic), Bade Adesemowo of Bincom extended this plugin to enable submenus of menu items to be created as well as in the mainmenu too.  Automatically creates/updates joomla menu items, when an article's category matches a menu's name.
+	<br/><br/>
+	<b>Note: </b><br/>
+	1. You only need this plugin if you want to create auto magic sub menu  . You should use the original if you do not need Sub Menus. Publishing the 2 plugin will cause duplicate menu items.  <br/>
+	2. If you want to enable auto deletion of Menu items when article is deleted, you need to install the second half of this extension system plugin : automenu_magic_system-1.00.zip . 
+	This is available here : http://www.derosetechnologies.com/community/joomla-automatic-menu-magic (no modification was done to the system plugin)<br/><br/>
+
+	History: BADEsemowo modified this extension to suit a client project in November 2009. Another client project needed it in July 2010 so I decided to publish it to joomla incase anyone needs it. 	Most of the work was done by the original author at Derose technologies. I only modified the code to enable creation of menus as a submenu of meneu items. 
+	]]>
+	</description>
+	<files>
+	<filename plugin="automenu_magic_bincom">automenu_magic_bincom.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field 
+					name="carryoutonmenuwithname" 
+					type="text" 
+					default="mainmenu" 
+					label="Carry out on Menu with name : " 
+					description="Use the function on only the menu in the above named . Use 'all' withouth the quote to operate on all menus " 
+				/>
+				<field 
+					name="menutype_title_matches" 
+					type="text" 
+					default="^%s[ ]*(menu[ ]*)?$" 
+					label="Create where title matches" 
+					description="This regex is passed to mysql when matching menutypes against an article's category. This string is passed through sprintf on its way to mysql - use %s to indicate the location of the category substitution." 
+				/>
+				<field 
+					name="menuitem_param_defaults"
+					type="text" 
+					default="show_icons=1,show_pdf_icon=1,show_print_icon=1,show_email_icon=1,show_page_title=1,menu_image=-1,secure=0" 
+					label="Item Param defaults"
+					description="A comma separated list of key=value formatted pairs. These values will be used when auto-creating menuitems." 
+				/>
+				<field name="associate_modules_with_items" type="radio" default="0" label="Associate modules with items?" description="Associate new menuitems, with ther modules from item order 0 of its corresponding menu.">
+					<option value="0">No Thanks.</option>
+					<option value="1">Yes, please.</option>
+				</field>
+				<field 
+					name="create_menulinks_in" 
+					type="menu"  
+					default="" 
+					label="Also create menualias in" 
+					description="(Optional) A menutype, in which aliases should be made to a recently created menu item. For any menuitems in this menutype, which match menulinks_title_matches, a link will be created." />
+				<field 
+					name="menulinks_title_matches" 
+					type="text" 
+					default="^%s[ ]*(menu[ ]*)?$" 
+					label="Create menualias when name matches against" 
+					description="This regex is passed to mysql when matching menuitems against an article's category. This string is passed through sprintf on its way to mysql - use %s to indicate the location of the category substitution. If no create_menulinks_in has been specified, then this value has no effect." 
+				/>
+				<field name="associate_modules_with_aliases" type="radio" default="0" label="Associate modules with Aliases?" description="Associate new menualiases, with modules from its parent menu. This only takes effect when create_menulinks_in is set">
+					<option value="0">No Thanks.</option>
+					<option value="1">Yes, please.</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
